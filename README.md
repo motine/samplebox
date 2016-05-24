@@ -12,9 +12,9 @@ We tested with a Raspberry PI 2 with [Raspbian](https://www.raspberrypi.org/down
 sudo -i
 dpkg-reconfigure locales # choose your keyboard layout and language (I prefer en_US.UTF-8)
 # install dependencies
-sudo apt-get install python3 python3-pygame
-# install convenience packages
-apt-get install vim
+sudo apt-get install python3 python3-pygame python3-rpi.gpio
+# install debugging/convenience packages
+apt-get install raspi-gpio mplayer vim
 ```
 
 ## Sound
@@ -22,8 +22,7 @@ apt-get install vim
 ```bash
 # initial testing...
 sudo -i
-apt-get install mplayer # install mplayer2 for testing
-amixer # show settings/volume
+raamixer # show settings/volume
 amixer set PCM -- -500 # set jack volume to -500 (defaults to -2000)
 mplayer samples/01.mp3
 ```
@@ -33,6 +32,13 @@ To add/change sounds, please create files under samples. Their filename should b
 ## Circuit
 
 ...TODO...
+
+See pinout here: http://pinout.xyz/
+
+```bash
+# test your circuit by checking the input of the gpio pins
+raspi-gpio get
+```
 
 Options to make the connection to the Pinout more stable are
 [1](https://www.reichelt.de/Leiterplattenverbinder-LPV-/PRBL-40D/3/index.html?&ACTION=3&LA=2&ARTICLE=14804&GROUPID=5221&artnr=PRBL+40D),
