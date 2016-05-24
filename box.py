@@ -2,6 +2,12 @@
 
 # docs: http://devdocs.io/python~3.5/
 
+# TODO document function of buttons
+# TODO document how to put sounds on (other stuff from readme goes into Development)
+# TODO draw circuit
+# TODO refactor
+# TODO push to Github (after asking Stefan)
+
 import os
 import pygame
 
