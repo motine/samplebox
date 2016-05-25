@@ -45,7 +45,7 @@ sudo systemctl status samplebox # check its status
 cd ~/samplebox/samples
 ```
 
-Now you can **add sounds**: To add/change sounds, please create files in the `samples` folder.
+Now you can **need add sounds, because the ones provided here are just silence**. To add/change sounds, please create files in the `samples` folder.
 Their filename should be a number between 1 and 8 with a leading 0.
 The sound files must be uncompressed wav files. Example filename: `samples/01.wav`.
 
