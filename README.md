@@ -35,14 +35,16 @@ apt-get install python3 python3-pygame python3-rpi.gpio
 apt-get install raspi-gpio mplayer vim
 cd
 git clone ... # TODO put correct URL
-cd samplebox
 # TODO setup service
+cd ~/samplebox/samples
+# download sounds (see below)
 ```
 
-Now you can **add sounds**: To add/change sounds, please create files under samples. Their filename should be a number between 1 and 8 with a leading 0.
+Now you can **add sounds**: To add/change sounds, please create files in the `samples` folder.
+Their filename should be a number between 1 and 8 with a leading 0.
 The sound files must be uncompressed wav files. Example filename: `samples/01.wav`.
 
-For example, please see [this site](http://www.orangefreesounds.com/category/sound-effects/funny-sounds/page/2/) to download nice sound effects.
+For example, please see [this site](http://www.orangefreesounds.com/category/sound-effects/funny-sounds/page/2/) to download sound effects.
 
 ## Development
 

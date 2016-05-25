@@ -5,15 +5,17 @@
 import os
 import pygame
 
-SOUND_PINS = [11,12,13,15]
-SHIFT_PIN = 16 # TODO document function
-CTRL_PIN = 18 # TODO document function
+SOUND_PINS = [11,12,13,15] # using board numbering (see here: http://pinout.xyz/)
+SHIFT_PIN = 16 # please see README.md for how shift works
+CTRL_PIN = 18 # also, please see README.md
 
-NUMBER_OF_SOUNDS = len(SOUND_PINS) * 2 # double the number of sounds, because we can use shift
+NUMBER_OF_SOUNDS = len(SOUND_PINS) * 2 # double the number of sounds, because we allow to use shift
 
 class SoundPlayer:
-    """Handles the interaction with pygame"""
+    """Handles the interaction with pygame for playing sounds."""
+    
     def __init__(self):
+        """Initialize the pygame and load all sounds."""
         pygame.mixer.init()
         self.sounds = []
         for i in range(NUMBER_OF_SOUNDS):
@@ -28,6 +30,7 @@ class SoundPlayer:
 
     @classmethod
     def path_for_sound(cls, number):
+        """Returns the full path for the sound corresponding to the given int."""
         base_path = os.path.dirname(os.path.realpath(__file__))
         sample_rel_path = "samples"
         return os.path.join(base_path, sample_rel_path, "%02d.wav" % (number,))
@@ -37,23 +40,28 @@ player = SoundPlayer()
 import subprocess
 class ShellStuff:
     def __init__(self):
+        """Reset sound to default."""
         self.volume = 70 # in percent
         self.set_volume()
         
     def louder(self):
+        """Increase volume."""
         print("louder...")
         self.volume = min(100, self.volume + 5)
         self.set_volume()
     
     def quieter(self):
+        """Decrease volume."""
         print("quieter...")
         self.volume = max(0, self.volume - 5)
         self.set_volume()
         
     def shutdown(self):
+        """Shutdown the pi."""
         subprocess.call(["shutdown", "-h", "0"])
         
     def set_volume(self):
+        """Actually set the volume via `amixer`."""
         subprocess.call(["amixer", "set", "PCM", "--", "%d%%" % (self.volume,)])
 
 shell = ShellStuff()
@@ -67,7 +75,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(SOUND_PINS + [SHIFT_PIN, CTRL_PIN], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def sound_callback(pin):
-    print(pin)
+    """Called by GPIO."""
     no = SOUND_PINS.index(pin)
     # TODO check if SHIFT or CTRL is down
     if GPIO.input(CTRL_PIN) == 0:
@@ -85,9 +93,9 @@ def sound_callback(pin):
 for pin in SOUND_PINS:
     GPIO.add_event_detect(pin, GPIO.RISING, callback=sound_callback, bouncetime=400)
 
+# main loop
 print('waiting...')
 import time
-# time.sleep(30)
 while True:
     time.sleep(0.2)
 print('exiting...')
