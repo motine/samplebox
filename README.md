@@ -27,22 +27,20 @@ Then I moved on to soldering the whole stuff together:
 We tested with a Raspberry PI 2 with [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) Jessie (lite image).
 
 ```bash
-sudo -i
-dpkg-reconfigure locales # choose your keyboard layout and language (I prefer en_US.UTF-8)
+sudo dpkg-reconfigure locales # choose your keyboard layout and language (I prefer en_US.UTF-8)
 # install dependencies
-apt-get install python3 python3-pygame python3-rpi.gpio
+sudo apt-get install python3 python3-pygame python3-rpi.gpio
 # install debugging/convenience packages
-apt-get install raspi-gpio mplayer vim
+sudo apt-get install raspi-gpio mplayer vim
 # download repo
 cd
 git clone https://github.com/motine/samplebox.git
-# setup service
 # If you want the playbox come up automatically after boot, install it as a systemd service
 sudo cp samplebox/systemd/samplebox.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable samplebox
-# start testing
-sudo systemctl start samplebox
+sudo systemctl start samplebox # start the service immediately
+sudo systemctl status samplebox # check its status
 # download sounds (also see below)
 cd ~/samplebox/samples
 ```

@@ -2,7 +2,7 @@
 Description=samplebox
 
 [Service]
-ExecStart=/home/pi/samplebox/box.rb
+ExecStart=/home/pi/samplebox/box.py
 
 [Install]
 WantedBy=multi-user.target
