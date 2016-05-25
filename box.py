@@ -2,15 +2,8 @@
 
 # docs: http://devdocs.io/python~3.5/
 
-# TODO document function of buttons
-# TODO document how to put sounds on (other stuff from readme goes into Development)
-# TODO draw circuit
-# TODO refactor
-# TODO push to Github (after asking Stefan)
-
 import os
 import pygame
-
 
 SOUND_PINS = [11,12,13,15]
 SHIFT_PIN = 16 # TODO document function
@@ -74,6 +67,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(SOUND_PINS + [SHIFT_PIN, CTRL_PIN], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def sound_callback(pin):
+    print(pin)
     no = SOUND_PINS.index(pin)
     # TODO check if SHIFT or CTRL is down
     if GPIO.input(CTRL_PIN) == 0:
@@ -81,7 +75,7 @@ def sound_callback(pin):
             shell.louder()
         elif no == 1:
             shell.quieter()
-        elif no == 2:
+        elif no == 3:
             shell.shutdown()
         return
     if GPIO.input(SHIFT_PIN) == 0:
@@ -89,11 +83,13 @@ def sound_callback(pin):
     player.play(no)
 
 for pin in SOUND_PINS:
-    GPIO.add_event_detect(pin, GPIO.RISING, callback=sound_callback, bouncetime=200)
+    GPIO.add_event_detect(pin, GPIO.RISING, callback=sound_callback, bouncetime=400)
 
 print('waiting...')
 import time
-time.sleep(30)
+# time.sleep(30)
+while True:
+    time.sleep(0.2)
 print('exiting...')
 
 GPIO.cleanup()

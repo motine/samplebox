@@ -2,7 +2,25 @@
 
 A little device with four buttons to play music/effect samples.
 
-<!-- ssh pi@192.168.77.181 -->
+## How it works
+
+There are four buttons. If you press one, a sound will be played. E.g. when you press the second button, the file located under `samples/02.wav` will be played.  
+There is an additional "shift" button. If pressed it plays other sounds. E.g. pressing the second button with shift pressed, `samples/06.wav` is played.  
+The sixth button is a "control" button. If you press the first button with control held, we increase volume. The second button makes following sounds quieter and the fourth button shuts the whole system down.
+
+## Circuit
+
+The very simplistic circuit looks like this:
+
+![circuit](photos/circuit.jpg)
+
+I first started on a breadboard:
+![breadboard](photos/breadboard.jpg)
+
+Then I moved on to soldering the whole stuff together:
+
+![plug](photos/plug.jpg)
+![ground](photos/ground.jpg)
 
 ## Installation
 
@@ -12,42 +30,27 @@ We tested with a Raspberry PI 2 with [Raspbian](https://www.raspberrypi.org/down
 sudo -i
 dpkg-reconfigure locales # choose your keyboard layout and language (I prefer en_US.UTF-8)
 # install dependencies
-sudo apt-get install python3 python3-pygame python3-rpi.gpio
+apt-get install python3 python3-pygame python3-rpi.gpio
 # install debugging/convenience packages
 apt-get install raspi-gpio mplayer vim
+cd
+git clone ... # TODO put correct URL
+cd samplebox
+# TODO setup service
 ```
 
-## Sound
+Now you can **add sounds**: To add/change sounds, please create files under samples. Their filename should be a number between 1 and 8 with a leading 0.
+The sound files must be uncompressed wav files. Example filename: `samples/01.wav`.
 
-```bash
-# initial testing...
-sudo -i
-raamixer # show settings/volume
-amixer set PCM -- -500 # set jack volume to -500 (defaults to -2000)
-mplayer samples/01.mp3
-```
+For example, please see [this site](http://www.orangefreesounds.com/category/sound-effects/funny-sounds/page/2/) to download nice sound effects.
 
-To add/change sounds, please create files under samples. Their filename should be a number between 1 and 8 with a leading 0. The sound files must be uncompressed wav files. Example filename: `samples/02.wav`.
+## Development
 
-## Circuit
+Please see [README.Development](README.Development.md) for more details on the software part of this project.
 
-...TODO...
+## TODOs
 
-See pinout here: http://pinout.xyz/
+- refactor
+- push to Github (after asking Stefan)
+- add/enable servie
 
-```bash
-# test your circuit by checking the input of the gpio pins
-raspi-gpio get
-```
-
-Options to make the connection to the Pinout more stable are
-[1](https://www.reichelt.de/Leiterplattenverbinder-LPV-/PRBL-40D/3/index.html?&ACTION=3&LA=2&ARTICLE=14804&GROUPID=5221&artnr=PRBL+40D),
-[2](https://www.reichelt.de/Buchsenleisten/BL-2X10G-SMD2-00/3/index.html?&ACTION=3&LA=2&ARTICLE=51841&GROUPID=3221&artnr=BL+2X10G+SMD2%2C00),
-[3](https://www.reichelt.de/Buchsenleisten/BL-2X20G-SMD2-00/3/index.html?&ACTION=3&LA=2&ARTICLE=51842&GROUPID=3221&artnr=BL+2X20G+SMD2%2C00).
-
-## Resources
-
-- Sounds: http://www.orangefreesounds.com/category/sound-effects/funny-sounds/page/2/
-- GPIO Python Package: https://pypi.python.org/pypi/RPi.GPIO ([wiki examples](https://sourceforge.net/p/raspberry-gpio-python/wiki/Examples/))
-- GPIO in Python Tutorial: http://makezine.com/projects/tutorial-raspberry-pi-gpio-pins-and-python/
-- Play audio files: http://raspberrypi.stackexchange.com/questions/7088/playing-audio-files-with-python
