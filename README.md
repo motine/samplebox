@@ -33,11 +33,18 @@ dpkg-reconfigure locales # choose your keyboard layout and language (I prefer en
 apt-get install python3 python3-pygame python3-rpi.gpio
 # install debugging/convenience packages
 apt-get install raspi-gpio mplayer vim
+# download repo
 cd
-git clone ... # TODO put correct URL
-# TODO setup service
+git clone https://github.com/motine/samplebox.git
+# setup service
+# If you want the playbox come up automatically after boot, install it as a systemd service
+sudo cp samplebox/systemd/samplebox.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable samplebox
+# start testing
+sudo systemctl start samplebox
+# download sounds (also see below)
 cd ~/samplebox/samples
-# download sounds (see below)
 ```
 
 Now you can **add sounds**: To add/change sounds, please create files in the `samples` folder.
@@ -52,7 +59,6 @@ Please see [README.Development](README.Development.md) for more details on the s
 
 ## TODOs
 
-- refactor
 - push to Github (after asking Stefan)
 - add/enable servie
 

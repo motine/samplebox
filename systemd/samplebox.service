@@ -1,0 +1,8 @@
+[Unit]
+Description=samplebox
+
+[Service]
+ExecStart=/home/pi/samplebox/box.rb
+
+[Install]
+WantedBy=multi-user.target
