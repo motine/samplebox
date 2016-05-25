@@ -55,8 +55,3 @@ For example, please see [this site](http://www.orangefreesounds.com/category/sou
 
 Please see [README.Development](README.Development.md) for more details on the software part of this project.
 
-## TODOs
-
-- push to Github (after asking Stefan)
-- add/enable servie
-
