@@ -7,6 +7,8 @@ SHIFT_PIN = 16 # please see README.md for how shift works
 CTRL_PIN = 18 # also, please see README.md
 BOUNCE_TIME = 400 # ms
 
+import signal, sys
+
 from soundplayer import SoundPlayer
 from shellstuff import ShellStuff
 
@@ -50,6 +52,14 @@ def main_loop():
         time.sleep(0.2)
     print('exiting...')
 
+def cleanup(signum, frame):
+    print("exiting...")
+    GPIO.cleanup()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, cleanup)
+signal.signal(signal.SIGTERM, cleanup)
+
 init_gpio()
 main_loop()
-GPIO.cleanup()
+cleanup()
