@@ -15,6 +15,10 @@ class SoundPlayer:
         """Plays the given sound with the given number. Called with 0 it will play 1.wav. Called with 1 it will play 2.wav..."""
         print("playing %d" % (number+1,))
         self.sounds[number].play()
+        
+    def stop_all(self):
+        for sound in self.sounds:
+            sound.stop()
 
     @classmethod
     def path_for_sound(cls, number):

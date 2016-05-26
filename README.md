@@ -24,7 +24,7 @@ Then I moved on to soldering the whole stuff together:
 
 ## Installation
 
-We tested with a Raspberry PI 2 with [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) Jessie (lite image).
+We tested with a Raspberry PI 2 with [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) Jessie (lite image). Please ssh onto the machine:
 
 ```bash
 sudo dpkg-reconfigure locales # choose your keyboard layout and language (I prefer en_US.UTF-8)
@@ -41,12 +41,14 @@ sudo systemctl daemon-reload
 sudo systemctl enable samplebox
 sudo systemctl start samplebox # start the service immediately
 sudo systemctl status samplebox # check its status
-# download sounds (also see below)
+# download sounds
 cd ~/samplebox/samples
+# see below
+sudo systemctl restart samplebox # reload the new samples
 ```
 
 Now you can **need add sounds, because the ones provided here are just silence**. To add/change sounds, please create files in the `samples` folder.
-Their filename should be a number between 1 and 8 with a leading 0.
+Their filename should be a number between 1 and 8 with a leading 0. After changing samples, please restart the service (see above).
 The sound files must be uncompressed wav files. Example filename: `samples/01.wav`.
 
 For example, please see [this site](http://www.orangefreesounds.com/category/sound-effects/funny-sounds/page/2/) to download sound effects.
